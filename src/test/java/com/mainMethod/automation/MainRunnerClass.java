@@ -31,11 +31,36 @@ public class MainRunnerClass {
 	@BeforeSuite
 	public void beforeSuite() {
 
-		System.out.println("Enter 1 for Chrome");
-		System.out.println("Enter 2 for Mozilla Firefox");
+		String browserProp = System.getProperty("browser");
+		int browserChoice = 0;
+		if (browserProp != null) {
+			try {
+				if (browserProp.equalsIgnoreCase("chrome") || browserProp.equals("1")) {
+					browserChoice = 1;
+				} else if (browserProp.equalsIgnoreCase("firefox") || browserProp.equals("2")) {
+					browserChoice = 2;
+				} else if (browserProp.equalsIgnoreCase("chrome-headless") || browserProp.equals("3")) {
+					browserChoice = 3;
+				} else if (browserProp.equalsIgnoreCase("firefox-headless") || browserProp.equals("4")) {
+					browserChoice = 4;
+				}
+			} catch (Exception e) {
+				System.out.println("Invalid browser property, falling back to prompt.");
+			}
+		}
 
-		Scanner sc = new Scanner(System.in);
-		int browserChoice = sc.nextInt();
+		Scanner sc = null;
+		if (browserChoice == 0) {
+			System.out.println("Enter 1 for Chrome");
+			System.out.println("Enter 2 for Mozilla Firefox");
+			try {
+				sc = new Scanner(System.in);
+				browserChoice = sc.nextInt();
+			} catch (Exception e) {
+				System.out.println("Failed to read scanner/interactive input (CI/CD environments). Defaulting to Chrome.");
+				browserChoice = 1;
+			}
+		}
 
 		switch (browserChoice) {
 		case 1:
@@ -48,8 +73,23 @@ public class MainRunnerClass {
 			driver = new FirefoxDriver();
 			driver.manage().window().maximize();
 			break;
+		case 3:
+			WebDriverManager.chromedriver().setup();
+			org.openqa.selenium.chrome.ChromeOptions chromeOptions = new org.openqa.selenium.chrome.ChromeOptions();
+			chromeOptions.addArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage");
+			driver = new ChromeDriver(chromeOptions);
+			break;
+		case 4:
+			WebDriverManager.firefoxdriver().setup();
+			org.openqa.selenium.firefox.FirefoxOptions firefoxOptions = new org.openqa.selenium.firefox.FirefoxOptions();
+			firefoxOptions.addArguments("--headless");
+			driver = new FirefoxDriver(firefoxOptions);
+			break;
 		default:
-			System.out.println("Invalid choice.");
+			System.out.println("Invalid choice. Defaulting to Chrome.");
+			WebDriverManager.chromedriver().setup();
+			driver = new ChromeDriver();
+			driver.manage().window().maximize();
 			break;
 		}
 
@@ -112,7 +152,9 @@ public class MainRunnerClass {
 				}
 			}
 		} finally {
-			sc.close();
+			if (sc != null) {
+				sc.close();
+			}
 		}
 	}
 

@@ -17,6 +17,10 @@ public class ExcelUtility {
 	@DataProvider(name = "excelData")
 	public static Object[][] getExcelData() {
 		File file = new File(VARIABLES.EXCEL_FILE_PATH);
+		if (!file.exists()) {
+			System.out.println("Excel file not found at " + file.getAbsolutePath() + ". Returning empty data set for headless/CI/CD run.");
+			return new Object[0][0];
+		}
 		Workbook workBook = null;
 		Object[][] data = null;
 
