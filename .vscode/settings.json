@@ -1,0 +1,10 @@
+{
+    "java.test.config": [
+        {
+            "name": "chrome",
+            "vmArgs": [
+                "-Dbrowser=chrome"
+            ]
+        }
+    ]
+}
