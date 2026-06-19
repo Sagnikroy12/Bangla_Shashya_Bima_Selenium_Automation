@@ -31,6 +31,12 @@ public class MainRunnerClass {
 	@BeforeSuite
 	public void beforeSuite() {
 
+		// If credentials are not provided, skip the entire test suite to avoid failures in CI.
+		if (VARIABLES.EMAIL == null || VARIABLES.EMAIL.isBlank() || VARIABLES.PASSWORD == null
+				|| VARIABLES.PASSWORD.isBlank()) {
+			throw new SkipException("BSB credentials not provided; skipping tests.");
+		}
+
 		String browserProp = System.getProperty("browser");
 		int browserChoice = 0;
 		if (browserProp != null) {

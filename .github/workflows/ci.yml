@@ -33,4 +33,7 @@ jobs:
         run: mvn -B -U -DskipTests package
 
       - name: Run TestNG suite
-        run: mvn -B -U -Dbrowser=chrome-headless test
+        env:
+          BSB_EMAIL: ${{ secrets.BSB_EMAIL }}
+          BSB_PASSWORD: ${{ secrets.BSB_PASSWORD }}
+        run: mvn -B -U -Dbrowser=chrome-headless -Dbsb.email=${{ secrets.BSB_EMAIL }} -Dbsb.password=${{ secrets.BSB_PASSWORD }} test
