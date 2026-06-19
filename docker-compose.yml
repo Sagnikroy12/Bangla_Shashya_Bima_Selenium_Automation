@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  tests:
+    image: maven:3.9.16-eclipse-temurin-17
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace:rw
+      - ${EXCEL_HOST_DIR:-./excel-data}:/data:rw
+      - ./target:/workspace/target:rw
+    environment:
+      - BSB_EMAIL=${BSB_EMAIL}
+      - BSB_PASSWORD=${BSB_PASSWORD}
+    command: mvn -Ddata.dir=/data -Dbsb.email=${BSB_EMAIL:-test@example.com} -Dbsb.password=${BSB_PASSWORD:-secret} test
