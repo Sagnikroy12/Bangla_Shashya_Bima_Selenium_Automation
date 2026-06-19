@@ -33,4 +33,4 @@ jobs:
         run: mvn -B -U -DskipTests package
 
       - name: Run TestNG suite
-        run: mvn -B -U -Dsurefire.suiteXmlFiles=testng.xml -Dbrowser=chrome-headless test
+        run: mvn -B -U -Dbrowser=chrome-headless test

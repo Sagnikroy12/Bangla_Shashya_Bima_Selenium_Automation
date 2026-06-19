@@ -8,12 +8,29 @@
 <body>
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Retried</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
-<tr><th colspan="8">Surefire suite</th></tr>
-<tr><td><a href="#t0">Surefire test</a></td><td class="num">2</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">3,234</td><td></td><td></td></tr>
+<tr><th colspan="8">Suite</th></tr>
+<tr><td><a href="#t0">Test</a></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">88</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Surefire suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Surefire test &#8212; passed</th></tr><tr class="passedeven"><td rowspan="1">Freelance.com.projectSetup.ExcelUtilityTest</td><td><a href="#m0">readExcelData_shouldReturnRows</a></td><td rowspan="1">1781900683447</td><td rowspan="1">434</td></tr><tr class="passedodd"><td rowspan="1">Freelance.com.projectSetup.VARIABLESTest</td><td><a href="#m1">constantsShouldBeNonEmpty</a></td><td rowspan="1">1781900683903</td><td rowspan="1">1</td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Test &#8212; failed (configuration methods)</th></tr><tr class="failedeven"><td rowspan="1">com.mainMethod.automation.MainRunnerClass</td><td><a href="#m0">beforeSuite</a></td><td rowspan="1">1781902380641</td><td rowspan="1">14537</td></tr><tr><th colspan="4">Test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">com.mainMethod.automation.MainRunnerClass</td><td><a href="#m1">runTests</a></td><td rowspan="1">1781902395278</td><td rowspan="1">0</td></tr><tr><th colspan="4">Test &#8212; skipped (configuration methods)</th></tr><tr class="skippedeven"><td rowspan="1">com.mainMethod.automation.MainRunnerClass</td><td><a href="#m2">afterSuite</a></td><td rowspan="1">1781902395390</td><td rowspan="1">0</td></tr></tbody>
 </table>
-<h2>Surefire test</h2><h3 id="m0">Freelance.com.projectSetup.ExcelUtilityTest#readExcelData_shouldReturnRows</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m1">Freelance.com.projectSetup.VARIABLESTest#constantsShouldBeNonEmpty</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h2>Test</h2><h3 id="m0">com.mainMethod.automation.MainRunnerClass#beforeSuite</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.ExceptionInInitializerError
+	at com.mainMethod.automation.MainRunnerClass.beforeSuite(MainRunnerClass.java:120)
+Caused by: java.lang.IllegalStateException: Missing credential. Provide -bsb.email or set the BSB_EMAIL environment variable.
+	at Freelance.com.projectSetup.VARIABLES.resolveCredential(VARIABLES.java:51)
+	at Freelance.com.projectSetup.VARIABLES.&lt;clinit&gt;(VARIABLES.java:41)
+	... 24 more
+... Removed 23 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m1">com.mainMethod.automation.MainRunnerClass#runTests</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.RuntimeException: java.lang.NoClassDefFoundError: Could not initialize class Freelance.com.projectSetup.VARIABLES
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: java.lang.NoClassDefFoundError: Could not initialize class Freelance.com.projectSetup.VARIABLES
+	at Freelance.com.projectSetup.ExcelUtility.getExcelData(ExcelUtility.java:19)
+	... 29 more
+Caused by: java.lang.ExceptionInInitializerError: Exception java.lang.IllegalStateException: Missing credential. Provide -bsb.email or set the BSB_EMAIL environment variable. [in thread &quot;main&quot;]
+	at Freelance.com.projectSetup.VARIABLES.resolveCredential(VARIABLES.java:51)
+	at Freelance.com.projectSetup.VARIABLES.&lt;clinit&gt;(VARIABLES.java:41)
+	at com.mainMethod.automation.MainRunnerClass.beforeSuite(MainRunnerClass.java:120)
+	... 14 more
+... Removed 45 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m2">com.mainMethod.automation.MainRunnerClass#afterSuite</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
 </body>
 </html>
