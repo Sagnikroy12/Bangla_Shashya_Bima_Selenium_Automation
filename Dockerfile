@@ -1,26 +1,56 @@
 # Build image for the Selenium Maven project
-# This image builds the project and produces a packaged jar.
-FROM maven:3.9.16-eclipse-temurin-17 AS build
+# This image builds the project and runs the test suite.
+FROM maven:3.9.16-eclipse-temurin-17
 
 WORKDIR /workspace
 
-# Install Google Chrome stable for headless execution
-RUN apt-get update && apt-get install -y wget gnupg curl \
-    && curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
-    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list \
-    && apt-get update && apt-get install -y google-chrome-stable \
+# Install Chromium browser (simpler than Chrome) and dependencies
+RUN apt-get update && apt-get install -y \
+    chromium-browser \
+    chromium-driver \
+    fonts-liberation \
+    libappindicator3-1 \
+    libatk-bridge2.0-0 \
+    libatk1.0-0 \
+    libcups2 \
+    libdbus-1-3 \
+    libexpat1 \
+    libgbm1 \
+    libglib2.0-0 \
+    libnspr4 \
+    libnss3 \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
+    libx11-6 \
+    libx11-xcb1 \
+    libxcb1 \
+    libxcb-dri3-0 \
+    libxcomposite1 \
+    libxcursor1 \
+    libxdamage1 \
+    libxext6 \
+    libxfixes3 \
+    libxi6 \
+    libxinerama1 \
+    libxrandr2 \
+    libxrender1 \
+    libxss1 \
+    libxtst6 \
+    xdg-utils \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy only the pom first to cache dependency download
+# Copy pom.xml first to cache dependencies
 COPY pom.xml .
-RUN mvn -B dependency:go-offline
 
-# Copy source files and build package
+# Download Maven dependencies
+RUN mvn dependency:resolve dependency:resolve-plugins
+
+# Copy source files
 COPY src ./src
-RUN mvn -B -DskipTests package
+COPY drivers ./drivers
 
-# The project is a Maven test automation project.
-# The built jar artifact will be located in /workspace/target.
+# Build the project (skip tests in build stage)
+RUN mvn clean package -DskipTests
 
-# Default command to run the test suite in headless mode with the container data directory
-CMD ["mvn", "test", "-Dbrowser=chrome-headless", "-Ddata.dir=/workspace/data"]
+# Default command runs tests with Chromium in headless mode
+CMD ["mvn", "test", "-Dbrowser=chromium-headless", "-Ddata.dir=/data"]
