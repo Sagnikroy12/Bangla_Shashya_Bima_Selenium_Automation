@@ -6,5 +6,7 @@
                 "-Dbrowser=chrome"
             ]
         }
-    ]
+    ],
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

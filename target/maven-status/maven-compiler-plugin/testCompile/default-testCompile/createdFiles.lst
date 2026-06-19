@@ -1,2 +1,3 @@
-com\mainMethod\automation\MainRunnerClass.class
 com\mainMethod\automation\PageBean.class
+Freelance\com\projectSetup\ExcelUtility.class
+Freelance\com\projectSetup\VARIABLES.class

@@ -123,7 +123,7 @@ public class MainRunnerClass {
 			openNewTab();
 			driver.get(VARIABLES.NEW_REGISTRATION_URL);
 			gotoExecuted = true;
-		} catch (NoSuchElementException | InterruptedException e) {
+		} catch (NoSuchElementException e) {
 			e.printStackTrace();
 			System.out.println("Error");
 
